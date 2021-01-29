@@ -1,12 +1,7 @@
-
-import './App.css';
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      Battleship
-    </div>
-  );
+  return <div className="App">Battleship</div>;
 }
 
 export default App;
