@@ -1,13 +1,13 @@
 const shipFactory = (length, positions) => {
   let hitPos = [];
 
-  function hit(tile) {
-    hitPos.push(tile);
+  function hit(coords) {
+    hitPos.push(coords);
     return hitPos;
   }
 
   function isSunk() {
-    return positions.every((pos) => hitPos.includes(pos));
+    return hitPos.length === length;
   }
   return { length, hitPos, hit, positions, isSunk };
 };
