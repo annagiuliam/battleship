@@ -1,5 +1,3 @@
-//const { waitForElementToBeRemoved } = require("@testing-library/react");
-
 const shipFactory = require("../components/shipFactory");
 
 test("verify hit", () => {
