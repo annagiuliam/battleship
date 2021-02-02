@@ -5,7 +5,7 @@ const boardGameFactory = (size) => {
   for (let i = 0; i < size; i++) {
     let row = [];
     for (let j = 0; j < size; j++) {
-      let cell = { coords: [i, j], hit: false, ship: false };
+      let cell = { coords: [i, j], status: null, ship: null };
       row.push(cell);
     }
     board.push(row);
@@ -19,10 +19,23 @@ const boardGameFactory = (size) => {
     { name: "patrol boat", length: 2 },
   ];
   const shipYard = createShipYard(shipLengths, board);
+  const missedHits = [];
 
-  return { board, shipYard };
+  function receiveAttack(coords) {
+    const [x, y] = coords;
+    if (board[x][y].ship) {
+      const hitShip = shipYard.find((ship) => ship.name === board[x][y].ship);
+      board[x][y].status = "hit";
+      hitShip.hit(coords);
+    } else {
+      missedHits.push(coords);
+      board[x][y].status = "missed";
+    }
+  }
+
+  return { board, shipYard, receiveAttack };
 };
 
-module.exports = boardGameFactory;
+// module.exports = boardGameFactory;
 
-//export default boardGameFactory;
+export default boardGameFactory;

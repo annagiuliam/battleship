@@ -33,15 +33,15 @@ function placeShip(board, ship, coords) {
     const x = coord[0];
     const y = coord[1];
     board[x][y].ship = ship.name;
+    board[x][y].status = ship.name;
   });
 }
 
 function coordsFree(coords, board) {
   return coords.every((coord) => {
-    //console.log(board);
     const x = coord[0];
     const y = coord[1];
-    return !board[x][y].ship;
+    return !board[x][y].status;
   });
 }
 
@@ -59,19 +59,19 @@ function generateShipCoords(board, ship) {
   const orientation = randomOrientation();
   const x = startCoords[0];
   const y = startCoords[1];
-  const row = board[x];
+  //const row = board[x];
   let shipCoords;
 
   if (orientation === "horizontal") {
-    shipCoords = generateHorCoords(x, y, row, ship);
+    shipCoords = generateHorCoords(x, y, ship);
   } else {
-    shipCoords = generateVerCoords(x, y, board, row, ship);
+    shipCoords = generateVerCoords(x, y, ship);
   }
 
   return shipCoords;
 }
 
-function generateHorCoords(x, y, row, ship) {
+function generateHorCoords(x, y, ship) {
   let endPos = null;
   let shipCoords = [];
   //if the end position is withing the board, generate coords between start and end position, otherwise check in the other direction
@@ -89,7 +89,7 @@ function generateHorCoords(x, y, row, ship) {
   return shipCoords;
 }
 
-function generateVerCoords(x, y, board, row, ship) {
+function generateVerCoords(x, y, ship) {
   let endPos = null;
   let shipCoords = [];
 

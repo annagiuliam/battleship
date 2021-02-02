@@ -1,10 +1,19 @@
+import React from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import boardFactory from "./factories/boardFactory";
 
 function App() {
-  const gameBoard = boardFactory(10);
-  const board = gameBoard.board;
-  console.log(board);
+  const [gameBoard, setGameBoard] = useState(boardFactory(10));
+  const [board, setBoard] = useState(gameBoard.board);
+  // const board = gameBoard.board;
+
+  useEffect(() => {
+    console.log(gameBoard.receiveAttack([0, 1]));
+    console.log(gameBoard.board);
+    console.log(gameBoard.shipYard);
+  });
+
   return (
     <div className="board">
       {board.map((row) => {
@@ -13,7 +22,7 @@ function App() {
             {row.map((square) => {
               return (
                 <div className="board-square">
-                  {!square.ship ? "X" : square.ship}
+                  {!square.status ? "O" : square.status}
                 </div>
               );
             })}
