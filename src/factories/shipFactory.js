@@ -1,4 +1,5 @@
-const shipFactory = (length, positions) => {
+const shipFactory = (length, name) => {
+  let coords = [];
   let hitPos = [];
 
   function hit(coords) {
@@ -9,7 +10,7 @@ const shipFactory = (length, positions) => {
   function isSunk() {
     return hitPos.length === length;
   }
-  return { length, hitPos, hit, positions, isSunk };
+  return { length, hitPos, hit, name, isSunk, coords };
 };
 
 module.exports = shipFactory;
