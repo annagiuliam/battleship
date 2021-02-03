@@ -33,9 +33,42 @@ const boardGameFactory = (size) => {
     }
   }
 
-  return { board, shipYard, receiveAttack };
+  function getShipsCoords() {
+    let coords = [];
+    shipYard.forEach((ship) => {
+      coords.push(ship.coords);
+    });
+    return coords;
+  }
+
+  function getEmptySquares() {
+    const emptySquares = [];
+    board.forEach((row) => {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i].status === null) {
+          emptySquares.push(row[i].coords);
+        }
+      }
+      return emptySquares;
+    });
+    return emptySquares;
+  }
+
+  function allSunk() {
+    return shipYard.every((ship) => ship.isSunk());
+  }
+
+  return {
+    board,
+    shipYard,
+    missedHits,
+    receiveAttack,
+    getShipsCoords,
+    getEmptySquares,
+    allSunk,
+  };
 };
 
-// module.exports = boardGameFactory;
+module.exports = boardGameFactory;
 
-export default boardGameFactory;
+//export default boardGameFactory;

@@ -9,8 +9,8 @@ function App() {
   // const board = gameBoard.board;
 
   useEffect(() => {
-    console.log(gameBoard.receiveAttack([0, 1]));
-    console.log(gameBoard.board);
+    //console.log(gameBoard.receiveAttack([0, 1]));
+    //console.log(gameBoard.board);
     console.log(gameBoard.shipYard);
   });
 

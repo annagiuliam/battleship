@@ -20,5 +20,3 @@ test("verify hit 2", () => {
   ]);
   expect(ship.isSunk()).toBe(true);
 });
-
-module.exports = shipFactory;
