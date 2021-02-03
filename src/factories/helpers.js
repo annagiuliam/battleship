@@ -29,18 +29,16 @@ function createShipYard(shipLengths, board) {
 }
 
 function placeShip(board, ship, coords) {
-  coords.forEach((coord) => {
-    const x = coord[0];
-    const y = coord[1];
+  coords.forEach((pair) => {
+    const [x, y] = pair;
     board[x][y].ship = ship.name;
     board[x][y].status = ship.name;
   });
 }
 
 function coordsFree(coords, board) {
-  return coords.every((coord) => {
-    const x = coord[0];
-    const y = coord[1];
+  return coords.every((pair) => {
+    const [x, y] = pair;
     return !board[x][y].status;
   });
 }
@@ -57,8 +55,7 @@ function generateValidCoords(board, ship) {
 function generateShipCoords(board, ship) {
   const startCoords = randomStart();
   const orientation = randomOrientation();
-  const x = startCoords[0];
-  const y = startCoords[1];
+  const [x, y] = startCoords;
   //const row = board[x];
   let shipCoords;
 
