@@ -35,8 +35,6 @@ test("board functions", () => {
 
 function sinkAll(shipsCoords, gameBoard) {
   for (let i = 0; i < shipsCoords.length; i++) {
-    for (let j = 0; j < shipsCoords[i].length; j++) {
-      gameBoard.receiveAttack(shipsCoords[i][j]);
-    }
+    gameBoard.receiveAttack(shipsCoords[i]);
   }
 }

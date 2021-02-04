@@ -36,8 +36,11 @@ const gameBoardFactory = (size) => {
 
   function getShipsCoords() {
     let coords = [];
+
     shipYard.forEach((ship) => {
-      coords.push(ship.coords);
+      for (let i = 0; i < ship.coords.length; i++) {
+        coords.push(ship.coords[i]);
+      }
     });
     return coords;
   }
@@ -62,7 +65,7 @@ const gameBoardFactory = (size) => {
     let legalSquares = [];
     board.forEach((row) => {
       for (let i = 0; i < row.length; i++) {
-        if (row[i].status != "hit" && row[i].status != "missed") {
+        if (row[i].status !== "hit" && row[i].status !== "missed") {
           legalSquares.push(row[i].coords);
         }
       }
