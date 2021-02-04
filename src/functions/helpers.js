@@ -32,7 +32,8 @@ function placeShip(board, ship, coords) {
   coords.forEach((pair) => {
     const [x, y] = pair;
     board[x][y].ship = ship.name;
-    board[x][y].status = ship.name;
+    //board[x][y].status = ship.name;
+    board[x][y].status = "ship";
   });
 }
 

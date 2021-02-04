@@ -1,4 +1,4 @@
-import gameBoardFactory from "../components/gameBoardFactory";
+import gameBoardFactory from "../functions/gameBoardFactory";
 
 test("generate board", () => {
   const gameBoard = gameBoardFactory(10);

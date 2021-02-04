@@ -1,5 +1,5 @@
-import playerFactory from "../components/playerFactory";
-import gameBoardFactory from "../components/gameBoardFactory";
+import playerFactory from "../functions/playerFactory";
+import gameBoardFactory from "../functions/gameBoardFactory";
 
 test("attack", () => {
   const gameBoard = gameBoardFactory(10);
