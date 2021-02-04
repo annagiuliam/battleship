@@ -1,4 +1,4 @@
-const shipFactory = require("../factories/shipFactory");
+import shipFactory from "../components/shipFactory";
 
 test("verify hit", () => {
   const ship = shipFactory(2, "name");

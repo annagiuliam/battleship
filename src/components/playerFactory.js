@@ -1,9 +1,11 @@
-const playerFactory = (name, legalSquares) => {
-  function attack() {
+const playerFactory = (name) => {
+  function attack(legalSquares, coords = null) {
     let attackCoords;
     if (name === "computer") {
       attackCoords =
         legalSquares[Math.floor(Math.random() * legalSquares.length)];
+    } else {
+      attackCoords = coords;
     }
     return attackCoords;
   }
@@ -11,4 +13,4 @@ const playerFactory = (name, legalSquares) => {
   return { name, attack };
 };
 
-module.exports = playerFactory;
+export default playerFactory;

@@ -1,4 +1,4 @@
-const gameBoardFactory = require("../factories/gameBoardFactory");
+import gameBoardFactory from "../components/gameBoardFactory";
 
 test("generate board", () => {
   const gameBoard = gameBoardFactory(10);

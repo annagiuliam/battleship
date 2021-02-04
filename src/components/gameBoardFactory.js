@@ -86,6 +86,4 @@ const gameBoardFactory = (size) => {
   };
 };
 
-module.exports = gameBoardFactory;
-
-//export gameBoard;
+export default gameBoardFactory;

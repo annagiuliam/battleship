@@ -13,4 +13,4 @@ const shipFactory = (length, name) => {
   return { length, hitPos, hit, name, isSunk, coords };
 };
 
-module.exports = shipFactory;
+export default shipFactory;
