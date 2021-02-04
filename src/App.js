@@ -1,17 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./App.css";
-import boardFactory from "./factories/boardFactory";
+import gameBoardFactory from "./components/gameBoardFactory";
 
 function App() {
-  const [gameBoard, setGameBoard] = useState(boardFactory(10));
+  const [gameBoard, setGameBoard] = useState(gameBoardFactory(10));
   const [board, setBoard] = useState(gameBoard.board);
   // const board = gameBoard.board;
 
   useEffect(() => {
     //console.log(gameBoard.receiveAttack([0, 1]));
     //console.log(gameBoard.board);
-    console.log(gameBoard.shipYard);
+    console.table(gameBoard.board);
   });
 
   return (
