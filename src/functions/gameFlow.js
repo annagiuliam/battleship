@@ -1,10 +1,10 @@
 import gameBoardFactory from "./gameBoardFactory";
 
 const gameFlow = () => {
-  const compGameBoard = gameBoardFactory(10);
-  const humanGameBoard = gameBoardFactory(10);
+  const computer = gameBoardFactory(10);
+  const human = gameBoardFactory(10);
 
-  return { compGameBoard, humanGameBoard };
+  return { computer, human };
 };
 
 export default gameFlow;

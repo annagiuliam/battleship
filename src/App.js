@@ -6,20 +6,22 @@ import gameFlow from "./functions/gameFlow";
 import Board from "./components/Board";
 
 function App() {
-  const [compBoard, setCompBoard] = useState(gameFlow().compGameBoard.board);
-  const [humanBoard, setHumanBoard] = useState(gameFlow().humanGameBoard.board);
+  const [computer, setComputer] = useState(gameFlow().computer);
+  const [human, setHuman] = useState(gameFlow().human);
   // const board = gameBoard.board;
 
+  function handleClick(coords) {
+    //  RIPRENDI DA QUI
+  }
+
   useEffect(() => {
-    //console.log(gameBoard.receiveAttack([0, 1]));
-    //console.log(gameBoard.board);
-    //console.table(gameBoard.board);
+    console.log(computer.receivedHits);
   });
 
   return (
     <div className="boards-container">
-      <Board board={compBoard} type={"computer"} />
-      <Board board={humanBoard} type={"human"} />
+      <Board board={computer.board} type={"computer"} onClick={handleClick} />
+      <Board board={human.board} type={"human"} />
     </div>
   );
 }

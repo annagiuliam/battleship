@@ -4,13 +4,17 @@ const Board = (props) => {
   const { board, type } = props;
 
   return (
-    <board className={`board ${type}`}>
+    <div className={`board ${type}`}>
       {board.map((row) => {
         return (
           <div className="row">
             {row.map((square) => {
               return (
-                <div key={square.coords} className={`square ${square.status}`}>
+                <div
+                  key={square.coords}
+                  className={`square ${square.status}`}
+                  onClick={() => props.onClick(square.coords)}
+                >
                   {!square.status ? "" : square.status}
                 </div>
               );
@@ -18,7 +22,7 @@ const Board = (props) => {
           </div>
         );
       })}
-    </board>
+    </div>
   );
 };
 
