@@ -1,6 +1,6 @@
 import { createShipYard, sumShipLengths } from "./helpers";
 
-const boardGameFactory = (size) => {
+const gameBoardFactory = (size) => {
   const board = [];
   for (let i = 0; i < size; i++) {
     let row = [];
@@ -83,6 +83,6 @@ const boardGameFactory = (size) => {
   };
 };
 
-module.exports = boardGameFactory;
+module.exports = gameBoardFactory;
 
-//export default boardGameFactory;
+//export gameBoard;
