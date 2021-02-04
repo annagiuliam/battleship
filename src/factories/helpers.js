@@ -105,4 +105,8 @@ function generateVerCoords(x, y, ship) {
   return shipCoords;
 }
 
-export { randomStart, randomOrientation, createShipYard };
+function sumShipLengths(shipLengths) {
+  return shipLengths.reduce((tot, cur) => tot + cur.length, 0);
+}
+
+export { randomStart, randomOrientation, createShipYard, sumShipLengths };

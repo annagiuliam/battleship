@@ -1,4 +1,4 @@
-import { createShipYard } from "./helpers";
+import { createShipYard, sumShipLengths } from "./helpers";
 
 const boardGameFactory = (size) => {
   const board = [];
@@ -20,6 +20,7 @@ const boardGameFactory = (size) => {
   ];
   const shipYard = createShipYard(shipLengths, board);
   const missedHits = [];
+  const totalShipLengths = sumShipLengths(shipLengths);
 
   function receiveAttack(coords) {
     const [x, y] = coords;
@@ -49,13 +50,24 @@ const boardGameFactory = (size) => {
           emptySquares.push(row[i].coords);
         }
       }
-      return emptySquares;
     });
     return emptySquares;
   }
 
   function allSunk() {
     return shipYard.every((ship) => ship.isSunk());
+  }
+
+  function getLegalSquares() {
+    let legalSquares = [];
+    board.forEach((row) => {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i].status != "hit" && row[i].status != "missed") {
+          legalSquares.push(row[i].coords);
+        }
+      }
+    });
+    return legalSquares;
   }
 
   return {
@@ -65,6 +77,8 @@ const boardGameFactory = (size) => {
     receiveAttack,
     getShipsCoords,
     getEmptySquares,
+    getLegalSquares,
+    totalShipLengths,
     allSunk,
   };
 };

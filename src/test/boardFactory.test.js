@@ -17,16 +17,20 @@ test("board functions", () => {
 
   boardGame.receiveAttack(emptySquares[0]);
   expect(boardGame.missedHits).toStrictEqual([emptySquares[0]]);
+  expect(boardGame.getLegalSquares().length).toBe(99);
 
   boardGame.receiveAttack(emptySquares[1]);
   expect(boardGame.missedHits).toStrictEqual([
     emptySquares[0],
     emptySquares[1],
   ]);
+  expect(boardGame.getLegalSquares().length).toBe(98);
   expect(boardGame.allSunk()).toBe(false);
 
   sinkAll(shipsCoords, boardGame);
-
+  expect(boardGame.getLegalSquares().length).toBe(
+    98 - boardGame.totalShipLengths
+  );
   expect(boardGame.allSunk()).toBe(true);
 });
 
