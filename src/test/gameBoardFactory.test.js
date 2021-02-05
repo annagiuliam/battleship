@@ -15,14 +15,15 @@ test("board functions", () => {
   const emptySquares = gameBoard.getEmptySquares();
 
   gameBoard.receiveAttack(emptySquares[0]);
-  expect(gameBoard.missedHits).toStrictEqual([emptySquares[0]]);
+  // expect(gameBoard.missedHits).toStrictEqual([emptySquares[0]]);
   expect(gameBoard.getLegalSquares().length).toBe(99);
 
   gameBoard.receiveAttack(emptySquares[1]);
-  expect(gameBoard.missedHits).toStrictEqual([
-    emptySquares[0],
-    emptySquares[1],
-  ]);
+  // expect(gameBoard.missedHits).toStrictEqual([
+  //   emptySquares[0],
+  //   emptySquares[1],
+  // ]);
+
   expect(gameBoard.getLegalSquares().length).toBe(98);
   expect(gameBoard.allSunk()).toBe(false);
 

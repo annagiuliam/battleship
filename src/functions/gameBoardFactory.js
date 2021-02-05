@@ -20,7 +20,7 @@ const gameBoardFactory = (size) => {
   ];
   const shipYard = createShipYard(shipLengths, board);
   //const missedHits = [];
-  const legalSquares = getLegalSquares();
+  //const legalSquares = getLegalSquares();
   const totalShipLengths = sumShipLengths(shipLengths);
 
   function receiveAttack(coords) {
