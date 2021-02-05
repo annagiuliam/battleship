@@ -1,6 +1,6 @@
 const compPlayerFactory = () => {
   let prevCoords = [];
-  function attack(legalSquares, opponentBoard) {
+  function attack(legalSquares) {
     const attackCoords =
       legalSquares[Math.floor(Math.random() * legalSquares.length)];
     prevCoords.push(attackCoords[0]);
