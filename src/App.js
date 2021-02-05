@@ -9,6 +9,7 @@ function App() {
   const [computer, setComputer] = useState(gameBoardFactory(10));
   const [compBoard, setCompBoard] = useState(computer.board);
   const [compTurn, setCompTurn] = useState(false);
+  const [compScore, setCompScore] = useState(0);
 
   const [human, setHuman] = useState(gameBoardFactory(10));
   const [humanBoard, setHumanBoard] = useState(human.board);
@@ -16,14 +17,31 @@ function App() {
   // const board = gameBoard.board;
 
   function handleClick(coords) {
-    const newBoard = computer.receiveAttack(coords);
-    setCompBoard([...newBoard]);
+    if (!compTurn && isMoveLegal(coords)) {
+      const newBoard = computer.receiveAttack(coords);
+      setCompBoard([...newBoard]);
+      setCompTurn(true);
+      setTimeout(makeCompMove, 3000);
+    }
+  }
+
+  function isMoveLegal(coords) {
     const [x, y] = coords;
-    console.log(coords);
-    console.log(computer.shipYard);
-    console.log(compBoard[x][y]);
-    console.log(computer);
-    setCompTurn(true);
+    return (
+      compBoard[x][y].status !== "hit" && compBoard[x][y].status !== "missed"
+    );
+  }
+
+  function makeCompMove() {
+    const legalSquares = human.getLegalSquares();
+    let compMove =
+      legalSquares[Math.floor(Math.random() * legalSquares.length)];
+    // console.log(legalSquares.length);
+    // console.log(compMove);
+    const newBoard = human.receiveAttack(compMove);
+    // console.log(legalSquares.length);
+    setHumanBoard(newBoard);
+    setCompTurn(false);
   }
 
   useEffect(() => {
