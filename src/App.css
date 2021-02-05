@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+}
+
+.boards-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.square {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  margin : 0px;
+  background-color: lightblue;
+}
+
+ .human .ship {
+  background-color:darkgray;
+}
+
