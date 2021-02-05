@@ -8,4 +8,7 @@ test("attack", () => {
 
   expect(computer.attack(legalSquares)).toEqual(expect.any(Array));
   expect(computer.attack(legalSquares).length).toBe(2);
+  const attack = computer.attack(legalSquares);
+  console.log(attack);
+  console.log(computer.getAdjacentSquares(attack));
 });
