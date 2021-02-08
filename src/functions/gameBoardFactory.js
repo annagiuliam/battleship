@@ -77,6 +77,7 @@ const gameBoardFactory = (size) => {
 
   return {
     board,
+    size,
     shipYard,
     //missedHits,
     receiveAttack,

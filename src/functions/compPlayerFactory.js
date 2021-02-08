@@ -1,36 +1,59 @@
-const compPlayerFactory = () => {
-  let prevCoords = [];
+const compPlayerFactory = (humanBoard) => {
+  let prevAttack = null;
   function attack(legalSquares) {
-    const attackCoords =
-      legalSquares[Math.floor(Math.random() * legalSquares.length)];
-    prevCoords.push(attackCoords[0]);
-    prevCoords.push(attackCoords[1]);
+    let attackCoords;
+    // console.log(prevAttack);
+    // first attack or previous attack did not hit
+    if (!prevAttack || !wasHumanHit()) {
+      //console.log(wasHumanHit());
+      attackCoords =
+        legalSquares[Math.floor(Math.random() * legalSquares.length)];
+      prevAttack = attackCoords;
+      console.log(prevAttack);
+      // following attacks
+    } else {
+      //console.log(wasHumanHit());
+      const adjacentCoords = getAdjacentSquares(prevAttack);
+      attackCoords =
+        adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
+      prevAttack = attackCoords;
+    }
+
     return attackCoords;
   }
-  function getAdjacentSquares(coords, board) {
-    // const [x, y] = coords;
-    // const adjacentSquares = [
-    //   [x - 1, y],
-    //   [x + 1, y],
-    //   [x, y + 1],
-    //   [x, y - 1],
-    // ];
-    // const possibleAdj = adjacentSquares.filter((square) => {
-    //   console.log(square);
-    //   const [x, y] = square;
-    //   return (
-    //     board[x][y].status != "hit" &&
-    //     board[x][y].status != "missed" &&
-    //     x >= 0 &&
-    //     x <= 9 &&
-    //     y >= 0 &&
-    //     y <= 9
-    //   );
-    // });
-    // return possibleAdj;
-    // LOGICA SMART MOVE
+  function getAdjacentSquares(coords) {
+    const [x, y] = coords;
+    let adjacentCoords = [];
+    if (x + 1 < humanBoard[0].length) {
+      adjacentCoords.push([x + 1, y]);
+    }
+    if (x - 1 >= 0) {
+      adjacentCoords.push([x - 1, y]);
+    }
+    if (y + 1 < humanBoard[0].length) {
+      adjacentCoords.push([x, y + 1]);
+    }
+    if (y - 1 >= 0) {
+      adjacentCoords.push([x, y - 1]);
+    }
+
+    return adjacentCoords.filter((pair) => {
+      const [x, y] = pair;
+      return (
+        humanBoard[x][y].status !== "hit" &&
+        humanBoard[x][y].status !== "missed"
+      );
+    });
   }
-  return { attack, getAdjacentSquares };
+
+  function wasHumanHit() {
+    if (prevAttack) {
+      const [x, y] = prevAttack;
+      return humanBoard[x][y].status === "hit";
+    }
+  }
+
+  return { humanBoard, attack, prevAttack, getAdjacentSquares };
 };
 
 export default compPlayerFactory;
