@@ -14,11 +14,11 @@ function App() {
   const [wasHumanHit, setWashumanHit] = useState(false);
   // const [prevCompAttack, setPrevCompAttack] = useState(null);
 
-  const [compPlayer] = useState(compPlayerFactory);
-
   const [human] = useState(gameBoardFactory(10));
   const [humanBoard, setHumanBoard] = useState(human.board);
   const [humanScore, setHumanScore] = useState(0);
+
+  const [compPlayer] = useState(compPlayerFactory(human.board));
 
   const totalScore = computer.totalShipLengths;
 
@@ -52,8 +52,8 @@ function App() {
   function makeCompMove() {
     const legalSquares = human.getLegalSquares();
     let compMove = compPlayer.getAttackCoords(
-      legalSquares
-       wasHumanHit,
+      legalSquares,
+      wasHumanHit
       // prevCompAttack
     );
     //setPrevCompAttack(compMove);

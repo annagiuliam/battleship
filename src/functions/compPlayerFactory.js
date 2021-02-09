@@ -4,19 +4,35 @@ const compPlayerFactory = (humanBoard) => {
   function getAttackCoords(legalSquares, wasHumanHit) {
     let attackCoords;
 
-    if (wasHumanHit && !prevHand.adjSquares) {
+    if (wasHumanHit) {
       const adjacentCoords = getAdjacentSquares(prevHand.prevAttack);
       attackCoords =
         adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
+      const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
+      prevHand.adjSquares = [...newAdjCoords];
+      prevHand.prevAttack = [...attackCoords];
 
-      prevHand.prevAttack = [...attackCoords];
-      prevHand.adjSquares = [...adjacentCoords];
-    } else if (!prevHand.prevAttack || !wasHumanHit) {
-      attackCoords =
-        legalSquares[Math.floor(Math.random() * legalSquares.length)];
-      prevHand.prevAttack = [...attackCoords];
-    } else {
+      // prevHand.prevAttack = [...attackCoords];
+      // prevHand.adjSquares = [...adjacentCoords];
+      // } else if (!prevHand.prevAttack || !wasHumanHit) {
+      //   attackCoords =
+      //     legalSquares[Math.floor(Math.random() * legalSquares.length)];
+      //   prevHand.prevAttack = [...attackCoords];
+      // } else {
       //console.log(wasHumanHit());
+    } else {
+      if (prevHand.adjSquares) {
+        const adjacentCoords = prevHand.adjSquares;
+        attackCoords =
+          adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
+        const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
+        prevHand.adjSquares = [...newAdjCoords];
+        prevHand.prevAttack = [...attackCoords];
+      } else {
+        attackCoords =
+          legalSquares[Math.floor(Math.random() * legalSquares.length)];
+        prevHand.prevAttack = [...attackCoords];
+      }
     }
 
     return attackCoords;
@@ -46,14 +62,37 @@ const compPlayerFactory = (humanBoard) => {
     });
   }
 
-  function checkHit() {
-    if (prevHand.prevAttack) {
-      const [x, y] = prevHand.prevAttack;
-      return humanBoard[x][y].status === "hit";
-    } else {
-      return false;
+  function updateAdjCoords(adjacentCoords, attackCoords) {
+    if (adjacentCoords.length > 0) {
+      for (let i = 0; i < adjacentCoords.length; i++) {
+        if (
+          adjacentCoords[i][0] === attackCoords[0] &&
+          adjacentCoords[i][1] === attackCoords[1]
+        ) {
+          adjacentCoords.splice(i, 1);
+        }
+      }
     }
+
+    return adjacentCoords;
   }
+
+  // function usePrevious(adjacentCoords) {
+  //   const attackCoords =
+  //     adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
+  //   const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
+  //   prevHand.adjSquares = [...newAdjCoords];
+  //   prevHand.prevAttack = [...attackCoords];
+  //   return attackCoords;
+  // }
+  // function checkHit() {
+  //   if (prevHand.prevAttack) {
+  //     const [x, y] = prevHand.prevAttack;
+  //     return humanBoard[x][y].status === "hit";
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   return { humanBoard, getAttackCoords, getAdjacentSquares, prevHand };
 };
