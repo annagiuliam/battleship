@@ -1,22 +1,22 @@
 const compPlayerFactory = (humanBoard) => {
-  let prevAttack = null;
-  function attack(legalSquares) {
+  const prevHand = { adjSquares: null, prevAttack: null };
+
+  function getAttackCoords(legalSquares, wasHumanHit) {
     let attackCoords;
-    // console.log(prevAttack);
-    // first attack or previous attack did not hit
-    if (!prevAttack || !wasHumanHit()) {
-      //console.log(wasHumanHit());
-      attackCoords =
-        legalSquares[Math.floor(Math.random() * legalSquares.length)];
-      prevAttack = attackCoords;
-      console.log(prevAttack);
-      // following attacks
-    } else {
-      //console.log(wasHumanHit());
-      const adjacentCoords = getAdjacentSquares(prevAttack);
+
+    if (wasHumanHit && !prevHand.adjSquares) {
+      const adjacentCoords = getAdjacentSquares(prevHand.prevAttack);
       attackCoords =
         adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
-      prevAttack = attackCoords;
+
+      prevHand.prevAttack = [...attackCoords];
+      prevHand.adjSquares = [...adjacentCoords];
+    } else if (!prevHand.prevAttack || !wasHumanHit) {
+      attackCoords =
+        legalSquares[Math.floor(Math.random() * legalSquares.length)];
+      prevHand.prevAttack = [...attackCoords];
+    } else {
+      //console.log(wasHumanHit());
     }
 
     return attackCoords;
@@ -46,14 +46,16 @@ const compPlayerFactory = (humanBoard) => {
     });
   }
 
-  function wasHumanHit() {
-    if (prevAttack) {
-      const [x, y] = prevAttack;
+  function checkHit() {
+    if (prevHand.prevAttack) {
+      const [x, y] = prevHand.prevAttack;
       return humanBoard[x][y].status === "hit";
+    } else {
+      return false;
     }
   }
 
-  return { humanBoard, attack, prevAttack, getAdjacentSquares };
+  return { humanBoard, getAttackCoords, getAdjacentSquares, prevHand };
 };
 
 export default compPlayerFactory;

@@ -11,6 +11,8 @@ function App() {
   const [compBoard, setCompBoard] = useState(computer.board);
   const [compTurn, setCompTurn] = useState(false);
   const [compScore, setCompScore] = useState(0);
+  const [wasHumanHit, setWashumanHit] = useState(false);
+  // const [prevCompAttack, setPrevCompAttack] = useState(null);
 
   const [compPlayer] = useState(compPlayerFactory);
 
@@ -49,11 +51,19 @@ function App() {
 
   function makeCompMove() {
     const legalSquares = human.getLegalSquares();
-    let compMove = compPlayer.attack(legalSquares);
+    let compMove = compPlayer.getAttackCoords(
+      legalSquares
+       wasHumanHit,
+      // prevCompAttack
+    );
+    //setPrevCompAttack(compMove);
     const newBoard = human.receiveAttack(compMove);
     const [x, y] = compMove;
     if (humanBoard[x][y].status === "hit") {
       setCompScore(compScore + 1);
+      setWashumanHit(true);
+    } else {
+      setWashumanHit(false);
     }
     setHumanBoard(newBoard);
     setCompTurn(false);
