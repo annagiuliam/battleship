@@ -23,10 +23,23 @@ test("get attack coords", () => {
     [1, 0],
     [0, 1],
   ]);
+  expect(
+    computerPlayer.updateAdjCoords(
+      [
+        [0, 1],
+        [0, 2],
+        [0, 3],
+      ],
+      [0, 2]
+    )
+  ).toStrictEqual([
+    [0, 1],
+    [0, 3],
+  ]);
 
   const humanShipsCoords = human.getShipsCoords();
   const mockLegalSquares = [humanShipsCoords[0], humanShipsCoords[0]];
-  console.log(humanShipsCoords[0]);
+
   expect(computerPlayer.getAttackCoords(mockLegalSquares, false)).toStrictEqual(
     humanShipsCoords[0]
   );

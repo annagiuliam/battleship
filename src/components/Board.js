@@ -7,20 +7,20 @@ const Board = (props) => {
   return (
     <div className={`board ${type}`}>
       <h1>Player: {type}</h1>
-      {board.map((row) => {
+      {board.map((row, index) => {
         return (
-          <div className="row">
+          <div key={index} className="row">
             {row.map((square) => {
+              const [x, y] = square.coords;
+              const id = x.toString() + y.toString();
               return (
                 <div
-                  key={square.coords}
+                  key={id}
                   className={`square ${square.status}`}
                   onClick={
                     canClick ? () => props.onClick(square.coords) : undefined
                   }
-                >
-                  {/* {!square.status ? "" : square.status} */}
-                </div>
+                ></div>
               );
             })}
           </div>
