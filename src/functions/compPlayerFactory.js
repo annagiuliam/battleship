@@ -5,15 +5,21 @@ const compPlayerFactory = (humanBoard) => {
     let attackCoords;
 
     if (wasHumanHit) {
+      //get available adjacent squares
       const adjacentCoords = getAdjacentSquares(prevHand.prevAttack);
 
-      attackCoords =
-        adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
-      console.log(adjacentCoords);
-      console.log(attackCoords);
-      const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
-      prevHand.adjSquares = [...prevHand.adjSquares, ...newAdjCoords];
-      prevHand.prevAttack = [...attackCoords];
+      if (adjacentCoords.length > 0) {
+        attackCoords =
+          adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
+        // remove attack coords from list of available adj coords
+        const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
+        if (newAdjCoords.length > 0) {
+          prevHand.adjSquares = [...prevHand.adjSquares, ...newAdjCoords];
+        }
+      } else {
+        attackCoords =
+          legalSquares[Math.floor(Math.random() * legalSquares.length)];
+      }
     } else {
       if (prevHand.adjSquares.length > 0) {
         const adjacentCoords = prevHand.adjSquares;
@@ -21,17 +27,19 @@ const compPlayerFactory = (humanBoard) => {
           adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
 
         const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
-        prevHand.adjSquares = [...newAdjCoords];
-        prevHand.prevAttack = [...attackCoords];
+        if (adjacentCoords.length > 0) {
+          prevHand.adjSquares = [...newAdjCoords];
+        }
       } else {
         attackCoords =
           legalSquares[Math.floor(Math.random() * legalSquares.length)];
-        prevHand.prevAttack = [...attackCoords];
       }
     }
+    prevHand.prevAttack = [...attackCoords];
 
     return attackCoords;
   }
+
   function getAdjacentSquares(coords) {
     const [x, y] = coords;
     let adjacentCoords = [];

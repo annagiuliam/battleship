@@ -39,7 +39,7 @@ function App() {
     }
     setCompBoard([...newBoard]);
     setCompTurn(true);
-    setTimeout(makeCompMove, 3000);
+    setTimeout(makeCompMove, 1000);
   }
 
   function isMoveLegal(coords) {
