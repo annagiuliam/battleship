@@ -3,18 +3,27 @@ const compPlayerFactory = (humanBoard) => {
 
   function getAttackCoords(legalSquares, wasHumanHit) {
     let attackCoords;
+    console.log(prevHand);
 
     if (wasHumanHit) {
       //get available adjacent squares
       const adjacentCoords = getAdjacentSquares(prevHand.prevAttack);
+      console.log("adj coords");
+      console.log(adjacentCoords);
 
       if (adjacentCoords.length > 0) {
         attackCoords =
           adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
         // remove attack coords from list of available adj coords
+        console.log(attackCoords);
         const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
+        console.log("new adj coords");
+        console.log(newAdjCoords);
         if (newAdjCoords.length > 0) {
-          prevHand.adjSquares = [...prevHand.adjSquares, ...newAdjCoords];
+          const newAdjSquares = [...prevHand.adjSquares, ...newAdjCoords];
+          console.log(newAdjSquares);
+          prevHand.adjSquares = [...newAdjSquares];
+          console.log(prevHand.adjSquares);
         }
       } else {
         attackCoords =
@@ -25,10 +34,12 @@ const compPlayerFactory = (humanBoard) => {
         const adjacentCoords = prevHand.adjSquares;
         attackCoords =
           adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
-
+        //TROVA BUG QUI, SI DUPLICA
         const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
         if (adjacentCoords.length > 0) {
-          prevHand.adjSquares = [...newAdjCoords];
+          const newAdjSquares = [...prevHand.adjSquares, ...newAdjCoords];
+          prevHand.adjSquares = [...newAdjSquares];
+          console.log(prevHand.adjSquares);
         }
       } else {
         attackCoords =
@@ -38,6 +49,13 @@ const compPlayerFactory = (humanBoard) => {
     prevHand.prevAttack = [...attackCoords];
 
     return attackCoords;
+  }
+
+  function updatePrevHand(newAdjCoords, prevHand) {
+    if (newAdjCoords.length > 0) {
+      prevHand.adjSquares = [...prevHand.adjSquares, ...newAdjCoords];
+    }
+    console.log(prevHand.adjSquares);
   }
 
   function getAdjacentSquares(coords) {
