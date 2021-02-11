@@ -61,13 +61,6 @@ const compPlayerFactory = () => {
     return attackCoords;
   }
 
-  function updatePrevHand(newAdjCoords, prevHand) {
-    if (newAdjCoords.length > 0) {
-      prevHand.adjSquares = [...prevHand.adjSquares, ...newAdjCoords];
-    }
-    console.log(prevHand.adjSquares);
-  }
-
   function getAdjacentSquares(legalSquares, coords) {
     const [x, y] = coords;
     const adjCoords = [];
@@ -89,18 +82,26 @@ const compPlayerFactory = () => {
   }
 
   function updateAdjCoords(adjacentCoords, attackCoords) {
+    let uniqCoords;
     if (adjacentCoords.length > 0) {
-      for (let i = 0; i < adjacentCoords.length; i++) {
+      uniqCoords = adjacentCoords
+        .map(JSON.stringify)
+        .reverse()
+        .filter(function (e, i, a) {
+          return a.indexOf(e, i + 1) === -1;
+        })
+        .reverse()
+        .map(JSON.parse);
+      for (let i = 0; i < uniqCoords.length; i++) {
         if (
-          adjacentCoords[i][0] === attackCoords[0] &&
-          adjacentCoords[i][1] === attackCoords[1]
+          uniqCoords[i][0] === attackCoords[0] &&
+          uniqCoords[i][1] === attackCoords[1]
         ) {
-          adjacentCoords.splice(i, 1);
+          uniqCoords.splice(i, 1);
         }
       }
     }
-
-    return adjacentCoords;
+    return uniqCoords;
   }
 
   // function usePrevious(adjacentCoords) {

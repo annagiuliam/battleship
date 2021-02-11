@@ -2,7 +2,7 @@ import compPlayerFactory from "../functions/compPlayerFactory";
 import gameBoardFactory from "../functions/gameBoardFactory";
 
 test("get attack coords", () => {
-  const computer = gameBoardFactory(10);
+  //const computer = gameBoardFactory(10);
   const human = gameBoardFactory(10);
   const legalSquares = human.getLegalSquares();
   const computerPlayer = compPlayerFactory();
@@ -35,6 +35,20 @@ test("get attack coords", () => {
     )
   ).toStrictEqual([
     [0, 1],
+    [0, 3],
+  ]);
+  const mockCoords = [
+    [0, 9],
+    [0, 2],
+    [0, 3],
+    [0, 3],
+    [1, 6],
+    [1, 6],
+  ];
+
+  expect(computerPlayer.updateAdjCoords(mockCoords, [1, 6])).toStrictEqual([
+    [0, 9],
+    [0, 2],
     [0, 3],
   ]);
 
