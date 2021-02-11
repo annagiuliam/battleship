@@ -5,24 +5,25 @@ test("get attack coords", () => {
   const computer = gameBoardFactory(10);
   const human = gameBoardFactory(10);
   const legalSquares = human.getLegalSquares();
-  const computerPlayer = compPlayerFactory(human.board);
+  const computerPlayer = compPlayerFactory();
 
+  expect(computerPlayer.getAdjacentSquares(legalSquares, [2, 9])).toStrictEqual(
+    [
+      [1, 9],
+      [2, 8],
+      [3, 9],
+    ]
+  );
+  expect(computerPlayer.getAdjacentSquares(legalSquares, [0, 0])).toStrictEqual(
+    [
+      [0, 1],
+      [1, 0],
+    ]
+  );
   expect(computerPlayer.getAttackCoords(legalSquares, false)).toEqual(
     expect.any(Array)
   );
-
   expect(computerPlayer.getAttackCoords(legalSquares).length).toBe(2);
-  const attack = computerPlayer.getAttackCoords(legalSquares, false);
-
-  expect(computerPlayer.getAdjacentSquares([2, 9])).toStrictEqual([
-    [3, 9],
-    [1, 9],
-    [2, 8],
-  ]);
-  expect(computerPlayer.getAdjacentSquares([0, 0])).toStrictEqual([
-    [1, 0],
-    [0, 1],
-  ]);
   expect(
     computerPlayer.updateAdjCoords(
       [
@@ -37,31 +38,17 @@ test("get attack coords", () => {
     [0, 3],
   ]);
 
-  const humanShipsCoords = human.getShipsCoords();
-  const mockLegalSquares = [humanShipsCoords[0], humanShipsCoords[0]];
-
+  const mockLegalSquares = [legalSquares[0], legalSquares[0]];
   expect(computerPlayer.getAttackCoords(mockLegalSquares, false)).toStrictEqual(
-    humanShipsCoords[0]
+    legalSquares[0].coords
   );
-
-  human.receiveAttack(humanShipsCoords[0]);
-  // const [x, y] = humanShipsCoords[0];
-  // console.log(human.board[x][y]);
-  expect(computerPlayer.prevHand.prevAttack).toStrictEqual(humanShipsCoords[0]);
-  expect(computerPlayer.getAttackCoords(mockLegalSquares, true)).toEqual(
+  expect(computerPlayer.prevHand.prevAttack).toStrictEqual(
+    legalSquares[0].coords
+  );
+  expect(computerPlayer.getAttackCoords(human.getLegalSquares(), true)).toEqual(
     expect.any(Array)
   );
   expect(computerPlayer.prevHand.adjSquares).toEqual(expect.any(Array));
-  //expect(computerPlayer.prevHand.wasHumanHit).toBe(true);
-  //expect(computerPlayer.prevHand.adjSquares).toEqual(expect.any(Array));
-  // console.log(humanShipsCoords[0]);
 
-  // console.log(human.board[1][1]);
-  // console.log(computerPlayer.prevAttack); //  RIPRENDI DA QUI
-
-  // expect(computerPlayer.getAdjacentSquares([0, 1])).toStrictEqual([
-  //   [0, 2],
-  //   [0, 0],
-  // ]);
-  // human.receiveAttack(humanShipsCoords[0]);
+  expect(computerPlayer.prevHand.adjSquares).toEqual(expect.any(Array));
 });
