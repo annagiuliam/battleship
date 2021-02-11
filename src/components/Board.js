@@ -20,7 +20,9 @@ const Board = (props) => {
                   onClick={
                     canClick ? () => props.onClick(square.coords) : undefined
                   }
-                ></div>
+                >
+                  {square.coords}
+                </div>
               );
             })}
           </div>

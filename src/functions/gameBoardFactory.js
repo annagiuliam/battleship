@@ -68,7 +68,8 @@ const gameBoardFactory = (size) => {
     board.forEach((row) => {
       for (let i = 0; i < row.length; i++) {
         if (row[i].status !== "hit" && row[i].status !== "missed") {
-          legalSquares.push(row[i].coords);
+          // legalSquares.push(row[i].coords);
+          legalSquares.push(row[i]);
         }
       }
     });

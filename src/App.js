@@ -18,7 +18,7 @@ function App() {
   const [humanBoard, setHumanBoard] = useState(human.board);
   const [humanScore, setHumanScore] = useState(0);
 
-  const [compPlayer] = useState(compPlayerFactory(human.board));
+  const [compPlayer] = useState(compPlayerFactory());
 
   const totalScore = computer.totalShipLengths;
 
