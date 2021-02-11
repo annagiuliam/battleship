@@ -63,22 +63,16 @@ const compPlayerFactory = () => {
 
   function getAdjacentSquares(legalSquares, coords) {
     const [x, y] = coords;
-    const adjCoords = [];
-
-    for (let i = 0; i < legalSquares.length; i++) {
-      if (
-        (legalSquares[i].coords[0] === x - 1 &&
-          legalSquares[i].coords[1] === y) ||
-        (legalSquares[i].coords[0] === x + 1 &&
-          legalSquares[i].coords[1] === y) ||
-        (legalSquares[i].coords[0] === x &&
-          legalSquares[i].coords[1] === y - 1) ||
-        (legalSquares[i].coords[0] === x && legalSquares[i].coords[1] === y + 1)
-      ) {
-        adjCoords.push(legalSquares[i].coords);
-      }
-    }
-    return adjCoords;
+    return legalSquares
+      .filter((square) => {
+        return (
+          (square.coords[0] === x - 1 && square.coords[1] === y) ||
+          (square.coords[0] === x + 1 && square.coords[1] === y) ||
+          (square.coords[0] === x && square.coords[1] === y - 1) ||
+          (square.coords[0] === x && square.coords[1] === y + 1)
+        );
+      })
+      .map((square) => square.coords);
   }
 
   function updateAdjCoords(adjacentCoords, attackCoords) {

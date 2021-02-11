@@ -19,8 +19,7 @@ const gameBoardFactory = (size) => {
     { name: "patrol boat", length: 2 },
   ];
   const shipYard = createShipYard(shipLengths, board);
-  //const missedHits = [];
-  //const legalSquares = getLegalSquares();
+
   const totalShipLengths = sumShipLengths(shipLengths);
 
   function receiveAttack(coords) {
@@ -30,7 +29,6 @@ const gameBoardFactory = (size) => {
       board[x][y].status = "hit";
       hitShip.hit(coords);
     } else {
-      // missedHits.push(coords);
       board[x][y].status = "missed";
     }
     return board;
@@ -68,7 +66,6 @@ const gameBoardFactory = (size) => {
     board.forEach((row) => {
       for (let i = 0; i < row.length; i++) {
         if (row[i].status !== "hit" && row[i].status !== "missed") {
-          // legalSquares.push(row[i].coords);
           legalSquares.push(row[i]);
         }
       }
@@ -80,7 +77,6 @@ const gameBoardFactory = (size) => {
     board,
     size,
     shipYard,
-    //missedHits,
     receiveAttack,
     getShipsCoords,
     getEmptySquares,
