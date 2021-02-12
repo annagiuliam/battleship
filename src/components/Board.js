@@ -6,7 +6,6 @@ const Board = (props) => {
 
   return (
     <div className={`board ${type}`}>
-      <h1>Player: {type}</h1>
       {board.map((row, index) => {
         return (
           <div key={index} className="row">
@@ -20,17 +19,12 @@ const Board = (props) => {
                   onClick={
                     canClick ? () => props.onClick(square.coords) : undefined
                   }
-                >
-                  {square.coords}
-                </div>
+                ></div>
               );
             })}
           </div>
         );
       })}
-      <div>
-        Score: {score}/{totalScore}
-      </div>
     </div>
   );
 };
