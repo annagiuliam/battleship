@@ -3,54 +3,34 @@ const compPlayerFactory = () => {
 
   function getAttackCoords(legalSquares, wasHumanHit) {
     let attackCoords;
-    //console.log(prevHand);
-    //console.log(legalSquares);
+
     if (wasHumanHit) {
       //get available adjacent squares
       const adjacentCoords = getAdjacentSquares(
         legalSquares,
         prevHand.prevAttack
       );
-      console.log("human hit");
-      console.log("adjcoords");
-      console.log(adjacentCoords);
-
       if (adjacentCoords.length > 0) {
         attackCoords =
           adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
-        // remove attack coords from list of available adj coords
-        console.log("adjcoords");
-        console.log(adjacentCoords);
-        console.log("attackcoords");
-        console.log(attackCoords);
-        // remove attack coords from adj coords fomr this hand and from previous hand
-        //const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
-
+        // merge present adj coords with adj coords from previous turns
         const allAdjCoords = [...prevHand.adjSquares, ...adjacentCoords];
-        console.log("all adj coords");
-        console.log(allAdjCoords);
+        // remove current attack and possible duplicates coords
         const updatedCoords = updateAdjCoords(allAdjCoords, attackCoords);
-        console.log("updated adj coords");
-        console.log(updatedCoords);
+        //store all possible adj coords
         prevHand.adjSquares = [...updatedCoords];
-        console.log("new prev hand adj coords");
-        console.log(prevHand.adjSquares);
       } else {
         attackCoords =
           legalSquares[Math.floor(Math.random() * legalSquares.length)].coords;
       }
     } else {
+      // if human was not hit in the previous turn, check if there are adj coords to try
       if (prevHand.adjSquares.length > 0) {
         const adjacentCoords = prevHand.adjSquares;
         attackCoords =
           adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
-        console.log("adj sq");
-        console.log(adjacentCoords);
-        console.log(attackCoords);
         const updatedAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
-
         prevHand.adjSquares = [...updatedAdjCoords];
-        console.log(prevHand.adjSquares);
       } else {
         attackCoords =
           legalSquares[Math.floor(Math.random() * legalSquares.length)].coords;
@@ -82,7 +62,7 @@ const compPlayerFactory = () => {
         .map(JSON.stringify)
         .reverse()
         .filter(function (e, i, a) {
-          return a.indexOf(e, i + 1) === -1;
+          return a.indexOf(e, i + 1) === -1; // check if there is any occurence of the item in whole array
         })
         .reverse()
         .map(JSON.parse);
@@ -98,25 +78,7 @@ const compPlayerFactory = () => {
     return uniqCoords;
   }
 
-  // function usePrevious(adjacentCoords) {
-  //   const attackCoords =
-  //     adjacentCoords[Math.floor(Math.random() * adjacentCoords.length)];
-  //   const newAdjCoords = updateAdjCoords(adjacentCoords, attackCoords);
-  //   prevHand.adjSquares = [...newAdjCoords];
-  //   prevHand.prevAttack = [...attackCoords];
-  //   return attackCoords;
-  // }
-  // function checkHit() {
-  //   if (prevHand.prevAttack) {
-  //     const [x, y] = prevHand.prevAttack;
-  //     return humanBoard[x][y].status === "hit";
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
   return {
-    //humanBoard,
     getAttackCoords,
     getAdjacentSquares,
     prevHand,
