@@ -1,31 +1,27 @@
 import compPlayerFactory from "../functions/compPlayerFactory";
 import gameBoardFactory from "../functions/gameBoardFactory";
 
-test("get attack coords", () => {
-  //const computer = gameBoardFactory(10);
-  const human = gameBoardFactory(10);
-  const legalSquares = human.getLegalSquares();
-  const computerPlayer = compPlayerFactory();
+const human = gameBoardFactory(10);
+const legalSquares = human.getLegalSquares();
+const computerPlayer = compPlayerFactory();
 
-  console.log(computerPlayer.getAdjacentSquares(legalSquares, [2, 9]));
-
-  // expect(computerPlayer.getAdjacentSquares(legalSquares, [2, 9])).toStrictEqual(
-  //   [
-  //     [1, 9],
-  //     [2, 8],
-  //     [3, 9],
-  //   ]
-  // );
-  // expect(computerPlayer.getAdjacentSquares(legalSquares, [0, 0])).toStrictEqual(
-  //   [
-  //     [0, 1],
-  //     [1, 0],
-  //   ]
-  // );
-  expect(computerPlayer.getAttackCoords(legalSquares, false)).toEqual(
-    expect.any(Array)
+test("get adjacent squares", () => {
+  expect(computerPlayer.getAdjacentSquares(legalSquares, [2, 9])).toStrictEqual(
+    [
+      [1, 9],
+      [2, 8],
+      [3, 9],
+    ]
   );
-  expect(computerPlayer.getAttackCoords(legalSquares).length).toBe(2);
+  expect(computerPlayer.getAdjacentSquares(legalSquares, [0, 0])).toStrictEqual(
+    [
+      [0, 1],
+      [1, 0],
+    ]
+  );
+});
+
+test("update adj coords", () => {
   expect(
     computerPlayer.updateAdjCoords(
       [
@@ -39,6 +35,9 @@ test("get attack coords", () => {
     [0, 1],
     [0, 3],
   ]);
+});
+
+test("remove duplicates from adj coords", () => {
   const mockCoords = [
     [0, 9],
     [0, 2],
@@ -53,6 +52,13 @@ test("get attack coords", () => {
     [0, 2],
     [0, 3],
   ]);
+});
+
+test("get attack coords", () => {
+  expect(computerPlayer.getAttackCoords(legalSquares, false)).toEqual(
+    expect.any(Array)
+  );
+  expect(computerPlayer.getAttackCoords(legalSquares).length).toBe(2);
 
   const mockLegalSquares = [legalSquares[0], legalSquares[0]];
   expect(computerPlayer.getAttackCoords(mockLegalSquares, false)).toStrictEqual(
@@ -64,7 +70,5 @@ test("get attack coords", () => {
   expect(computerPlayer.getAttackCoords(human.getLegalSquares(), true)).toEqual(
     expect.any(Array)
   );
-  expect(computerPlayer.prevHand.adjSquares).toEqual(expect.any(Array));
-
   expect(computerPlayer.prevHand.adjSquares).toEqual(expect.any(Array));
 });
