@@ -23,13 +23,13 @@ const gameBoardFactory = (size) => {
   const totalShipLengths = sumShipLengths(shipLengths);
 
   function receiveAttack(coords) {
-    const [x, y] = coords;
-    if (board[x][y].ship) {
-      const hitShip = shipYard.find((ship) => ship.name === board[x][y].ship);
-      board[x][y].status = "hit";
+    const [r, c] = coords;
+    if (board[r][c].ship) {
+      const hitShip = shipYard.find((ship) => ship.name === board[r][c].ship);
+      board[r][c].status = "hit";
       hitShip.hit(coords);
     } else {
-      board[x][y].status = "missed";
+      board[r][c].status = "missed";
     }
     return board;
   }

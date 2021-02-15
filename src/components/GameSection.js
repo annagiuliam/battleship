@@ -30,17 +30,12 @@ function GameSection() {
   useEffect(() => {
     if (humanScore === totalScore) {
       setCompTurn(false);
-      setTimeout(() => {
-        setDisplayWin(true);
-      }, 500);
+      setDisplayWin(true);
     }
     if (compScore === totalScore) {
       setDisplayWin(true);
-      setTimeout(() => {
-        setDisplayWin(true);
-      }, 500);
     }
-  });
+  }, [humanScore, totalScore, compScore]);
 
   function handleClick(coords) {
     if (
@@ -55,8 +50,8 @@ function GameSection() {
 
   function makeHumanMove(coords) {
     const newBoard = computer.receiveAttack(coords);
-    const [x, y] = coords;
-    if (compBoard[x][y].status === "hit") {
+    const [r, c] = coords;
+    if (compBoard[r][c].status === "hit") {
       setHumanScore(humanScore + 1);
     }
     setCompBoard([...newBoard]);
@@ -65,9 +60,9 @@ function GameSection() {
   }
 
   function isMoveLegal(coords) {
-    const [x, y] = coords;
+    const [r, c] = coords;
     return (
-      compBoard[x][y].status !== "hit" && compBoard[x][y].status !== "missed"
+      compBoard[r][c].status !== "hit" && compBoard[r][c].status !== "missed"
     );
   }
 
@@ -76,8 +71,8 @@ function GameSection() {
     let compMove = compPlayer.getAttackCoords(legalSquares, wasHumanHit);
 
     const newBoard = human.receiveAttack(compMove);
-    const [x, y] = compMove;
-    if (humanBoard[x][y].status === "hit") {
+    const [r, c] = compMove;
+    if (humanBoard[r][c].status === "hit") {
       setCompScore(compScore + 1);
       setWashumanHit(true);
     } else {
@@ -89,25 +84,26 @@ function GameSection() {
 
   function restartGame() {
     const newHuman = gameBoardFactory(10);
-    const newComputer = gameBoardFactory(10);
-
-    const newCompPlayer = compPlayerFactory();
-    setCompPlayer(newCompPlayer);
-
     setHuman(newHuman);
     setHumanBoard(newHuman.board);
     setHumanScore(0);
     setWashumanHit(false);
 
+    const newComputer = gameBoardFactory(10);
     setComputer(newComputer);
     setCompBoard(newComputer.board);
     setCompScore(0);
     setCompTurn(false);
+
+    const newCompPlayer = compPlayerFactory();
+    setCompPlayer(newCompPlayer);
   }
+
   function closeModal() {
     setDisplayWin(false);
     restartGame();
   }
+
   return (
     <div className="game-container">
       <div className="boards-container">

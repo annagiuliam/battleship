@@ -1,7 +1,7 @@
 import React from "react";
 
 const Board = (props) => {
-  const { board, type, score, totalScore } = props;
+  const { board, type } = props;
   const canClick = type === "computer";
 
   return (
@@ -10,8 +10,8 @@ const Board = (props) => {
         return (
           <div key={index} className="row">
             {row.map((square) => {
-              const [x, y] = square.coords;
-              const id = x.toString() + y.toString();
+              const [r, c] = square.coords;
+              const id = r.toString() + c.toString();
               return (
                 <div
                   key={id}

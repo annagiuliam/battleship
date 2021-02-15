@@ -30,17 +30,16 @@ function createShipYard(shipLengths, board) {
 
 function placeShip(board, ship, coords) {
   coords.forEach((pair) => {
-    const [x, y] = pair;
-    board[x][y].ship = ship.name;
-    //board[x][y].status = ship.name;
-    board[x][y].status = "ship";
+    const [r, c] = pair;
+    board[r][c].ship = ship.name;
+    board[r][c].status = "ship";
   });
 }
 
 function coordsFree(coords, board) {
   return coords.every((pair) => {
-    const [x, y] = pair;
-    return !board[x][y].status;
+    const [r, c] = pair;
+    return !board[r][c].status;
   });
 }
 
@@ -56,50 +55,50 @@ function generateValidCoords(board, ship) {
 function generateShipCoords(board, ship) {
   const startCoords = randomStart();
   const orientation = randomOrientation();
-  const [x, y] = startCoords;
-  //const row = board[x];
+  const [r, c] = startCoords;
+
   let shipCoords;
 
   if (orientation === "horizontal") {
-    shipCoords = generateHorCoords(x, y, ship);
+    shipCoords = generateHorCoords(r, c, ship);
   } else {
-    shipCoords = generateVerCoords(x, y, ship);
+    shipCoords = generateVerCoords(r, c, ship);
   }
 
   return shipCoords;
 }
 
-function generateHorCoords(x, y, ship) {
+function generateHorCoords(r, c, ship) {
   let endPos = null;
   let shipCoords = [];
   //if the end position is withing the board, generate coords between start and end position, otherwise check in the other direction
-  if (y + (ship.length - 1) < 10) {
-    endPos = y + (ship.length - 1);
-    for (let i = y; i <= endPos; i++) {
-      shipCoords.push([x, i]);
+  if (c + (ship.length - 1) < 10) {
+    endPos = c + (ship.length - 1);
+    for (let i = c; i <= endPos; i++) {
+      shipCoords.push([r, i]);
     }
   } else {
-    endPos = y - (ship.length - 1);
-    for (let i = y; i >= endPos; i--) {
-      shipCoords.push([x, i]);
+    endPos = c - (ship.length - 1);
+    for (let i = c; i >= endPos; i--) {
+      shipCoords.push([r, i]);
     }
   }
   return shipCoords;
 }
 
-function generateVerCoords(x, y, ship) {
+function generateVerCoords(r, c, ship) {
   let endPos = null;
   let shipCoords = [];
 
-  if (x + (ship.length - 1) < 10) {
-    endPos = x + (ship.length - 1);
-    for (let i = x; i <= endPos; i++) {
-      shipCoords.push([i, y]);
+  if (r + (ship.length - 1) < 10) {
+    endPos = r + (ship.length - 1);
+    for (let i = r; i <= endPos; i++) {
+      shipCoords.push([i, c]);
     }
   } else {
-    endPos = x - (ship.length - 1);
-    for (let i = x; i >= endPos; i--) {
-      shipCoords.push([i, y]);
+    endPos = r - (ship.length - 1);
+    for (let i = r; i >= endPos; i--) {
+      shipCoords.push([i, c]);
     }
   }
 

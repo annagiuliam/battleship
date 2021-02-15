@@ -42,14 +42,14 @@ const compPlayerFactory = () => {
   }
 
   function getAdjacentSquares(legalSquares, coords) {
-    const [x, y] = coords;
+    const [r, c] = coords;
     return legalSquares
       .filter((square) => {
         return (
-          (square.coords[0] === x - 1 && square.coords[1] === y) ||
-          (square.coords[0] === x + 1 && square.coords[1] === y) ||
-          (square.coords[0] === x && square.coords[1] === y - 1) ||
-          (square.coords[0] === x && square.coords[1] === y + 1)
+          (square.coords[0] === r - 1 && square.coords[1] === c) ||
+          (square.coords[0] === r + 1 && square.coords[1] === c) ||
+          (square.coords[0] === r && square.coords[1] === c - 1) ||
+          (square.coords[0] === r && square.coords[1] === c + 1)
         );
       })
       .map((square) => square.coords);
