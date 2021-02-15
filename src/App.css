@@ -1,3 +1,35 @@
+body, html , #root {
+  height: 100%;
+  margin: 0 
+} 
+
+.app-container {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.app-container::after {
+  content: "";
+  background-image: url("./images/background-battleship.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; 
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;  
+}
+
 .App {
   text-align: center;
 }
@@ -34,9 +66,15 @@
   background-color: lightblue;
 }
 
+.square:hover {
+  cursor: pointer;
+  
+  box-shadow: inset 0px 0px 13px 2px #161354;
+}
 .square:nth-child(n+1) {
   margin-top: -1px;
 }
+
 
 .square:nth-child(n+2) {
   margin-left: -1px;
@@ -60,3 +98,24 @@
   justify-content: center;
   
 }
+
+button {
+  height: 65px;
+  width: 65px;
+  border-radius: 45px;
+  border: 1px solid rgba(82, 82, 82, 0.64);
+    border-width: 1px;
+    box-shadow: inset -16px -16px 15px 6px #a09e9e, inset 14px 11px 9px 11px rgba(204, 204, 204, 0.45);      
+  }
+
+button:hover {
+    box-shadow: inset -16px -16px 15px 6px #797979, inset 14px 11px 9px 11px rgba(204, 204, 204, 0.45);
+    border: 1px solid rgba(66, 66, 66, 0.72);
+}
+button:active {
+    background: linear-gradient(145deg, #b3b3b3, #d2cfcf);
+    box-shadow: inset -4px -4px 6px 0px #fff, inset 3px 5px 5px 2px rgba(0, 0, 0, 0.4);
+    border:  none;
+    transition: 0,2s;
+}
+

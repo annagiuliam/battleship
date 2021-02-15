@@ -6,7 +6,7 @@ import HeaderSection from "./components/HeaderSection";
 
 function App() {
   return (
-    <div className="app=container">
+    <div className="app-container">
       <HeaderSection />
       <GameSection />
     </div>
