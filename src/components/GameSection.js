@@ -8,6 +8,7 @@ import compPlayerFactory from "../functions/compPlayerFactory";
 import Board from "./Board";
 import PlayerSection from "./PlayerSection";
 import RestartButton from "./RestartButton";
+import Modal from "./Modal";
 
 function GameSection() {
   const [computer, setComputer] = useState(gameBoardFactory(10));
@@ -22,17 +23,24 @@ function GameSection() {
 
   const [compPlayer, setCompPlayer] = useState(compPlayerFactory());
 
+  const [displayWin, setDisplayWin] = useState(false);
+
   const totalScore = computer.totalShipLengths;
 
   useEffect(() => {
-    if (humanScore === 17) {
+    if (humanScore === totalScore) {
       setCompTurn(false);
-      alert("human wins!");
+      setTimeout(() => {
+        setDisplayWin(true);
+      }, 500);
     }
-    if (compScore === 17) {
-      alert("computer wins!");
+    if (compScore === totalScore) {
+      setDisplayWin(true);
+      setTimeout(() => {
+        setDisplayWin(true);
+      }, 500);
     }
-  }, [compScore, humanScore]);
+  });
 
   function handleClick(coords) {
     if (
@@ -96,7 +104,10 @@ function GameSection() {
     setCompScore(0);
     setCompTurn(false);
   }
-
+  function closeModal() {
+    setDisplayWin(false);
+    restartGame();
+  }
   return (
     <div className="game-container">
       <div className="boards-container">
@@ -118,6 +129,15 @@ function GameSection() {
           <Board board={compBoard} type={"computer"} onClick={handleClick} />
         </div>
       </div>
+      {displayWin && (
+        <Modal
+          show={displayWin}
+          humanScore={humanScore}
+          compScore={compScore}
+          totalScore={totalScore}
+          onClick={() => closeModal()}
+        />
+      )}
     </div>
   );
 }
