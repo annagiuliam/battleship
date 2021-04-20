@@ -11,7 +11,8 @@ import RestartButton from "./RestartButton";
 import Modal from "./Modal";
 
 function GameSection() {
-  const [computer, setComputer] = useState(gameBoardFactory(10));
+  // call gameBoardFactory in function so it doesn't recreate the board on every render
+  const [computer, setComputer] = useState(() => gameBoardFactory(10));
   const [compBoard, setCompBoard] = useState(computer.board);
   const [compTurn, setCompTurn] = useState(false);
   const [compScore, setCompScore] = useState(0);
