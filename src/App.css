@@ -41,14 +41,15 @@ body, html , #root {
 
 #game-name {
   font-family: 'Black Ops One', cursive;
-  /* font-size: 1.5rem; */
   background: linear-gradient(#262525, #4b4a4a 45%, #222222 50%, #6e6e6e 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
 }
 
-
+.game-container {
+  margin-bottom: 1rem;
+}
 .boards-container {
   display: flex;
   flex-direction: column;
@@ -121,13 +122,20 @@ body, html , #root {
 
 #restart-btn {
   margin: 0 auto;
-  height: 65px;
-  width: 65px;
+  height: 5vw;
+  width: 5vw;
+  min-height: 35px;
+  min-width: 35px;
+  max-height: 65px;
+  max-width: 65px;
   border-radius: 45px;
   border: 1px solid rgba(82, 82, 82, 0.64);
   border-width: 1px;
   box-shadow: inset -16px -16px 15px 6px #a09e9e, inset 14px 11px 9px 11px rgba(204, 204, 204, 0.45);   
-  outline: none;   
+  outline: none;  
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
 
 #restart-btn:hover {
@@ -141,6 +149,15 @@ body, html , #root {
   box-shadow: inset -4px -4px 6px 0px #fff, inset 3px 5px 5px 2px rgba(0, 0, 0, 0.4);
   border:  none;
   transition: 0,2s;
+}
+
+#restart-text {
+  display: none;
+}
+
+#restart-icon {
+  font-size: 2rem;
+  color: #222222e3;
 }
 
 .modal {
@@ -181,15 +198,6 @@ body, html , #root {
   margin-bottom: 15px;
 }
 
-@media screen and (max-width: 350px) {
-  /* .square {
-    width : calc(100vw / 9);
-    height : calc(100vw / 9);
-    min-width : calc(100vw / 9);
-    min-height : calc(100vw / 9)
-  } */
-}
-
 @media screen and (min-width: 1200px) {
   #game-name {
     font-size: 3rem;
@@ -207,5 +215,13 @@ body, html , #root {
 
   .square {
     border: 1px solid black;
+  }
+
+  #restart-text {
+    display: block;
+  }
+
+  #restart-icon {
+    display: none;
   }
 }
