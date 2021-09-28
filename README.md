@@ -13,3 +13,4 @@ The computer checks the available tiles and when a ship is hit it tries to hit a
 See live app on https://annagiuliam.github.io/battleship/
 
 ## Preview ##
+![battleship preview](./src/images/battleship-gif.gif)
