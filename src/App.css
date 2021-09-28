@@ -119,7 +119,8 @@ body, html , #root {
   background-color: #0f185e;
 }
 
-#restart-btn {
+.round-btn {
+  font-family: 'Iceland', cursive;
   margin: 0 auto;
   height: 5vw;
   width: 5vw;
@@ -137,13 +138,13 @@ body, html , #root {
   align-items: center; 
 }
 
-#restart-btn:hover {
+.round-btn:hover {
   box-shadow: inset -16px -16px 15px 6px #797979, inset 14px 11px 9px 11px rgba(204, 204, 204, 0.45);
   border: 1px solid rgba(66, 66, 66, 0.72);
   cursor: pointer;
 }
 
-#restart-btn:active {
+.round-btn:active {
   background: linear-gradient(145deg, #b3b3b3, #d2cfcf);
   box-shadow: inset -4px -4px 6px 0px #fff, inset 3px 5px 5px 2px rgba(0, 0, 0, 0.4);
   border:  none;
@@ -172,12 +173,13 @@ body, html , #root {
 .modal-main {
   position:fixed;
   background: white;
-  width: 250px;
+  width: 300px;
   height: auto;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
-  border-radius: 5px;
+  border-radius: 15px;
+  padding: 1rem 2rem;
 }
 
 .display-block {
@@ -189,13 +191,17 @@ body, html , #root {
 }
 
 .modal-text {
-  margin-top: 15px;
-  margin-bottom: 10px
+  font-family: 'Iceland', cursive;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .modal-btn {
-  margin-bottom: 15px;
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.5rem;
 }
+
 
 @media screen and (min-width: 1200px) {
   #game-name {

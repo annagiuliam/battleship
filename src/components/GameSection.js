@@ -126,7 +126,7 @@ function GameSection() {
           <Board board={compBoard} type={"computer"} onClick={handleClick} />
         </div>
       </div>
-      {displayWin && (
+      {/* {displayWin && (
         <Modal
           show={displayWin}
           humanScore={humanScore}
@@ -134,7 +134,14 @@ function GameSection() {
           totalScore={totalScore}
           onClick={() => closeModal()}
         />
-      )}
+      )} */}
+      <Modal
+        show={displayWin}
+        humanScore={humanScore}
+        compScore={compScore}
+        totalScore={totalScore}
+        onClick={() => closeModal()}
+      />
     </div>
   );
 }

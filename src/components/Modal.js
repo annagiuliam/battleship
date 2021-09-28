@@ -15,7 +15,7 @@ const Modal = (props) => {
     <div className={showHideClassName}>
       <section className="modal-main">
         <div className="modal-text">{winner} wins!</div>
-        <button className="modal-btn" onClick={props.onClick}>
+        <button className="round-btn modal-btn" onClick={props.onClick}>
           OK
         </button>
       </section>
