@@ -71,7 +71,7 @@ function generateShipCoords(board, ship) {
 function generateHorCoords(r, c, ship) {
   let endPos = null;
   let shipCoords = [];
-  //if the end position is withing the board, generate coords between start and end position, otherwise check in the other direction
+  //if the end position is within the board, generate coords between start and end position, otherwise check in the other direction
   if (c + (ship.length - 1) < 10) {
     endPos = c + (ship.length - 1);
     for (let i = c; i <= endPos; i++) {
