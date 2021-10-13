@@ -88,13 +88,12 @@ body, html , #root {
   background-color: #7cc0d669;
 }
 
-.null:hover {
-  cursor: pointer;
-  
+.computer > .row > .null:hover {
+  cursor: pointer;  
   box-shadow: inset 0px 0px 13px 2px #161354;
 }
 
-.ship:hover {
+.computer > .row > .ship:hover {
   cursor: pointer;
   
   box-shadow: inset 0px 0px 13px 2px #161354;
